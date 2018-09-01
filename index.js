@@ -4,7 +4,7 @@ var scrubber;
 function setup() {
   let canvas = createCanvas(250, 200);
   canvas.parent('mycanvas');
-  Tile.createGrid(level3);
+  Tile.createGrid(level4);
 }
 
 function draw() {
