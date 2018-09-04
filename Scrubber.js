@@ -1,46 +1,36 @@
 class Scrubber {
-  constructor(x, y, size) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = size;
-    this.getColRow();
-
     this.xvel = 0;
     this.yvel = 0;
 
     this.speed = 2;
   }
 
-  getIndex() {
-    let col = floor(this.x / this.size);
-    let row = floor(this.y / this.size);
-    let columns = floor(width / this.size);
-    return col + row * columns;
-  }
-
-  getColRow() {
-    this.col = floor(this.x / this.size);
-    this.row = floor(this.y / this.size);
+  setColRow() {
+    this.col = floor(this.x / tilesize);
+    this.row = floor(this.y / tilesize);
   }
 
   update() {
+    this.setColRow();
     this.move();
     this.draw();
   }
 
   draw() {
     fill(0);
-    rect(this.x, this.y, this.size, this.size);
+    rect(this.x, this.y, tilesize, tilesize);
   }
 
   scrubTile() {
-    let index = this.getIndex();
+    let index = Tile.getIndex(this.col, this.row);
     grid[index].clean();
   }
 
   move() {
-    this.getColRow();
-    if (this.x % this.size != 0 || this.y % this.size != 0) {
+    if (this.x % tilesize != 0 || this.y % tilesize != 0) {
       this.x += this.xvel;
       this.y += this.yvel;
       return;

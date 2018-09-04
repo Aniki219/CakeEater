@@ -22,14 +22,14 @@ class Input {
   }
 
   static getMouseColRow() {
-    let col = floor(mouseX / tilesize) * tilesize;
-    let row = floor(mouseY / tilesize) * tilesize;
+    let col = floor(mouseX / tilesize);
+    let row = floor(mouseY / tilesize);
     let cols = floor(width / tilesize);
     let rows = floor(height / tilesize);
-    if (col > 0 && col < cols && row > 0 && row < rows) {
-      return {col: col, row: row};
-    } else {
-      return {col: 0, row: 0}
-    }
+
+    col = max(min(col, cols-1), 0);
+    row = max(min(row, rows-1), 0);
+
+    return {col: col, row: row};
   }
 }
