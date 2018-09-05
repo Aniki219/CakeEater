@@ -1,6 +1,6 @@
 var path = [];
 var scrubber;
-var level = 0
+var level = 1
 
 var waitForLoadLevel = true;
 var canWin = true;
