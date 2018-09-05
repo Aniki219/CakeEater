@@ -13,15 +13,27 @@ class Tile {
 
   clean() {
     this.traversible = false;
-    this.color = color(120, 150, 200);
+    this.color = color(160, 160, 180);
   }
 
   draw() {
-    stroke(200);
-    fill(this.color);
+
     let x = this.col * tilesize;
     let y = this.row * tilesize;
-    rect(x, y, tilesize, tilesize);
+    if (this.traversible) {
+      let index = Tile.getIndex(this.col, this.row + 1);
+      if (grid[index] && !(grid[index] instanceof Wall) && !Tile.placeFree(this.col, this.row + 1)) {
+        image(eatenCakeTile, x, y, tilesize, tilesize);
+      } else {
+        image(cakeTileImg, x, y, tilesize, tilesize);
+      }
+
+    } else {
+      stroke(200,200,200);
+      fill(this.color)
+      rect(x,y,tilesize,tilesize);
+    }
+
   }
 
   static getIndex(col, row) {

@@ -7,8 +7,17 @@ var canWin = true;
 var confetti = [];
 var makeConfetti = false;
 
+var cakeEaterImg;
+
+function preload() {
+  cakeEaterImg = loadImage("https://i.imgur.com/WdCn1YJ.png");
+  cakeTileImg = loadImage("https://i.imgur.com/orux0a1.png");
+  eatenCakeTile = loadImage("https://i.imgur.com/wKSJqGl.png");
+}
+
 function setup() {
   let canvas = createCanvas(0, 0);
+  canvas.class("pan")
   canvas.parent('mycanvas');
   loadLevel();
 }
