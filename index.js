@@ -1,23 +1,14 @@
 var path = [];
 var scrubber;
-var level = 1
+var level = 0;
 
 var waitForLoadLevel = true;
 var canWin = true;
 var confetti = [];
 var makeConfetti = false;
 
-var cakeEaterImg;
-
-function preload() {
-  cakeEaterImg = loadImage("https://i.imgur.com/WdCn1YJ.png");
-  cakeTileImg = loadImage("https://i.imgur.com/orux0a1.png");
-  eatenCakeTile = loadImage("https://i.imgur.com/wKSJqGl.png");
-}
-
 function setup() {
   let canvas = createCanvas(0, 0);
-  canvas.class("pan")
   canvas.parent('mycanvas');
   loadLevel();
 }
@@ -92,7 +83,7 @@ function doConfetti() {
   for(let c of confetti) {
     noStroke();
     fill(c.clr);
-    ellipse(c.x, c.y, 5, 5);
+    ellipse(c.x, c.y, 8, 8);
     c.y += 5;
   }
   confetti = confetti.filter(c => c.y < height);

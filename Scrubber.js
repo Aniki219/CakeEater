@@ -2,11 +2,11 @@ class Scrubber {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.dir = 0;
     this.xvel = 0;
     this.yvel = 0;
 
     this.speed = 2;
+    this.sprite = new Sprite(cakeEaterImg, 2, 30, 17, 17)
   }
 
   setColRow() {
@@ -21,11 +21,8 @@ class Scrubber {
   }
 
   draw() {
-    let offset = (frameCount % 60 > 30) ? 17 : 0;
-    image(cakeEaterImg,
-      this.x, this.y, tilesize, tilesize,
-      this.dir * 34 + offset, 0, 18, 18);
-
+    this.sprite.draw(this.x, this.y);
+    this.sprite.animate();
   }
 
   scrubTile() {
@@ -47,31 +44,37 @@ class Scrubber {
       if (Tile.placeFree(this.col - 1, this.row)) {
         this.xvel = -this.speed;
         this.yvel = 0;
-        this.dir = 0;
+        this.sprite.row = 0;
       }
     }
     if (register[RIGHT_ARROW]) {
       if (Tile.placeFree(this.col + 1, this.row)) {
         this.xvel = this.speed;
         this.yvel = 0;
-        this.dir = 3;
+        this.sprite.row = 3;
       }
     }
     if (register[UP_ARROW]) {
       if (Tile.placeFree(this.col, this.row - 1)) {
         this.xvel = 0;
         this.yvel = -this.speed;
-        this.dir = 2;
+        this.sprite.row = 2;
       }
     }
     if (register[DOWN_ARROW]) {
       if (Tile.placeFree(this.col, this.row + 1)) {
         this.xvel = 0;
         this.yvel = this.speed;
-        this.dir = 1;
+        this.sprite.row = 1;
       }
     }
     this.x += this.xvel;
     this.y += this.yvel;
+
+    if (this.xvel == 0 && this.yvel == 0) {
+      this.sprite.framespeed = 30;
+    } else {
+      this.sprite.framespeed = 10;
+    }
   }
 }

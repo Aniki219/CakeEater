@@ -1,7 +1,8 @@
 class Wall extends Tile {
   constructor(col, row) {
     super(col, row);
-    this.color = color(100, 100, 120);
+    this.image = new Sprite(candleTileImg, 2);
+    this.sideView = new Sprite(eatenCandleImg, 2);
     this.traversible = false;
   }
 

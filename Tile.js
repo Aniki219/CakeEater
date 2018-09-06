@@ -6,6 +6,8 @@ class Tile {
     this.col = col;
     this.row = row;
     this.index = Tile.getIndex(col, row);
+    this.image = new Sprite(cakeTileImg);
+    this.sideView = new Sprite(eatenCakeTile);
 
     this.color = color(120, 120, 170);
     this.traversible = true;
@@ -13,27 +15,23 @@ class Tile {
 
   clean() {
     this.traversible = false;
-    this.color = color(160, 160, 180);
+    this.image = new Sprite(crumbsImg);
+    this.sideView = new Sprite(crumbsImg);
+    this.image.row = floor(random(0, 3));
+    this.sideView.row = floor(random(0,3));
   }
 
   draw() {
-
     let x = this.col * tilesize;
     let y = this.row * tilesize;
-    if (this.traversible) {
-      let index = Tile.getIndex(this.col, this.row + 1);
-      if (grid[index] && !(grid[index] instanceof Wall) && !Tile.placeFree(this.col, this.row + 1)) {
-        image(eatenCakeTile, x, y, tilesize, tilesize);
-      } else {
-        image(cakeTileImg, x, y, tilesize, tilesize);
-      }
-
+    let index = Tile.getIndex(this.col, this.row + 1);
+    if (grid[index] && !(grid[index] instanceof Wall) && !Tile.placeFree(this.col, this.row + 1)) {
+      this.sideView.draw(x, y);
     } else {
-      stroke(200,200,200);
-      fill(this.color)
-      rect(x,y,tilesize,tilesize);
+      this.image.draw(x, y);
     }
-
+    this.image.animate();
+    this.sideView.animate();
   }
 
   static getIndex(col, row) {
