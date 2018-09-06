@@ -23,6 +23,12 @@ class Scrubber {
   draw() {
     this.sprite.draw(this.x, this.y);
     this.sprite.animate();
+
+    if (this.xvel == 0 && this.yvel == 0) {
+      this.sprite.framespeed = 30;
+    } else {
+      this.sprite.framespeed = 10;
+    }
   }
 
   scrubTile() {
@@ -31,15 +37,18 @@ class Scrubber {
   }
 
   move() {
-    if (this.x % tilesize != 0 || this.y % tilesize != 0) {
-      this.x += this.xvel;
-      this.y += this.yvel;
-      return;
-    } else {
-      this.scrubTile();
+    if (this.x % tilesize == 0 && this.y % tilesize == 0) {
       this.xvel = 0;
       this.yvel = 0;
+
+      this.scrubTile();
+      this.setVelocity();
     }
+    this.x += this.xvel;
+    this.y += this.yvel;
+  }
+
+  setVelocity() {
     if (register[LEFT_ARROW]) {
       if (Tile.placeFree(this.col - 1, this.row)) {
         this.xvel = -this.speed;
@@ -67,14 +76,6 @@ class Scrubber {
         this.yvel = this.speed;
         this.sprite.row = 1;
       }
-    }
-    this.x += this.xvel;
-    this.y += this.yvel;
-
-    if (this.xvel == 0 && this.yvel == 0) {
-      this.sprite.framespeed = 30;
-    } else {
-      this.sprite.framespeed = 10;
     }
   }
 }

@@ -1,4 +1,3 @@
-var path = [];
 var scrubber;
 var level = 0;
 

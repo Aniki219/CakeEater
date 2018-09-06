@@ -8,8 +8,6 @@ class Tile {
     this.index = Tile.getIndex(col, row);
     this.image = new Sprite(cakeTileImg);
     this.sideView = new Sprite(eatenCakeTile);
-
-    this.color = color(120, 120, 170);
     this.traversible = true;
   }
 
