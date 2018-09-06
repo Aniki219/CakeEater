@@ -1,12 +1,17 @@
+#title {
+  text-align:center;
+  color:yellow;
+  font-size:42px;
+  margin: 10px;
+}
+
 #mycanvas canvas {
-  border: 4px solid grey;
+  border: 6px solid darkgrey;
+  border-radius: 4px
 }
 
 #pan {
-  background-color:grey;
-  color:yellow;
-  text-align: center;
-  font-size: 24px;
-  width:30%;
-  margin:auto;
+  border-top: 40px solid grey;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
 }
