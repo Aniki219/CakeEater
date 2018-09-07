@@ -8,7 +8,6 @@ function setup() {
   let canvas = createCanvas();
   canvas.parent('mycanvas');
   Tile.createGrid(levels[level]);
-  cakeEater = new CakeEater(100, 50);
 }
 
 function draw() {
