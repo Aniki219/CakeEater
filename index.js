@@ -1,7 +1,7 @@
 var scrubber;
 var waitForLoadLevel = true;
 
-var level = 4;
+var level = 0;
 var canWin = true;
 var confetti = [];
 var makeConfetti = false;
