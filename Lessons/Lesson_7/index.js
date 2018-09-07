@@ -1,15 +1,54 @@
-var scrubber;
-var waitForLoadLevel = true;
-
+var cakeEater;
 var level = 4;
 var canWin = true;
 var confetti = [];
 var makeConfetti = false;
 
 function setup() {
-  let canvas = createCanvas(0, 0);
+  let canvas = createCanvas();
   canvas.parent('mycanvas');
-  loadLevel();
+  Tile.createGrid(levels[level]);
+  cakeEater = new CakeEater(100, 50);
+}
+
+function draw() {
+  if (waitForResize) {return;}
+
+  for (let g of grid) {
+    g.draw();
+  }
+
+  if (cakeEater) {
+    cakeEater.update();
+    checkWin();
+    if (register['R'.charCodeAt(0)]) {
+      loadLevel();
+    }
+  } else {
+    placeCakeEater();
+  }
+
+  if (makeConfetti) {
+    doConfetti();
+  }
+}
+
+function placeCakeEater() {
+  let colrow = getMouseColRow();
+  let index = Tile.getIndex(colrow.col, colrow.row);
+  let x = colrow.col * tilesize;
+  let y = colrow.row * tilesize;
+
+  if (grid[index].traversible) {
+    if (register['mouseleft']) {
+      cakeEater = new CakeEater(x, y, tilesize);
+    }
+    strokeWeight(2);
+    stroke(255, 255, 255);
+    noFill();
+    rect(x, y, tilesize, tilesize);
+    strokeWeight(1);
+  }
 }
 
 function checkWin() {
@@ -21,57 +60,6 @@ function checkWin() {
     makeConfetti = true;
     level++;
     setTimeout(loadLevel, 2000);
-  }
-}
-
-function loadLevel() {
-  if (levels.length <= level) {return;}
-  grid = [];
-  scrubber = null;
-  makeConfetti = false;
-  canWin = true;
-  waitForLoadLevel = true;
-  Tile.createGrid(levels[level]);
-  waitForLoadLevel = false;
-}
-
-function draw() {
-  if (waitForLoadLevel) {return;}
-
-  for (let g of grid) {
-    g.draw();
-  }
-
-  if (scrubber) {
-    scrubber.update();
-    checkWin();
-    if (Input.getKey('R')) {
-      loadLevel();
-    }
-  } else {
-    placeScrubber();
-  }
-
-  if (makeConfetti) {
-    doConfetti();
-  }
-}
-
-function placeScrubber() {
-  let colrow = Input.getMouseColRow();
-  let index = Tile.getIndex(colrow.col, colrow.row);
-  let x = colrow.col * tilesize;
-  let y = colrow.row * tilesize;
-
-  if (grid[index].traversible) {
-    if (register['mouseleft']) {
-      scrubber = new Scrubber(x, y, tilesize);
-    }
-    strokeWeight(2);
-    stroke(255, 255, 255);
-    noFill();
-    rect(x, y, tilesize, tilesize);
-    strokeWeight(1);
   }
 }
 
@@ -90,4 +78,13 @@ function doConfetti() {
 
 function getRandomColor() {
   return color(random(100, 255), random(100, 255), random(100, 255))
+}
+
+function loadLevel() {
+  if (levels.length <= level) {return;}
+  grid = [];
+  cakeEater = null;
+  makeConfetti = false;
+  canWin = true;
+  Tile.createGrid(levels[level]);
 }

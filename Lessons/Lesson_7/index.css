@@ -1,0 +1,30 @@
+#title {
+  font-family: 'Permanent Marker', cursive;
+  text-align: center;
+  color: yellow;
+  font-size: 42px;
+  margin: 10px;
+}
+
+body {
+  background-color:  rgb(50, 50, 50);
+}
+
+#centered {
+  text-align:center;
+}
+
+#mycanvas {
+  border: 6px solid darkgrey;
+  border-radius: 4px;
+}
+
+#pan {
+  display:inline-block;
+}
+
+#pan-bottom {
+  border-top: 40px solid grey;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
